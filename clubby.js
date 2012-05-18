@@ -12,15 +12,15 @@ config = {
 init = function() {
 	for(var clubbed_file in config) {
 
-        for(var file in config[clubbed_file]) {
-            clubby.watchFile(file, {persistent : true}, 
-                function(curr, prev) {
-                    console.log('current ', curr, ' and previous ', prev);
-                    count += 1;
-                    console.log(count, ' ----------------------------------------');
-            });
-            console.log('clubby is watching ', file,' file...');
-        }
+		for(var file in config[clubbed_file]) {
+			clubby.watch(file, {persistent : true}, 
+				function(curr, prev) {
+					console.log('current ', curr, ' and previous ', prev);
+					count += 1;
+					console.log(count, ' ----------------------------------------');
+			});
+			console.log('clubby is watching ', file,' file...');
+		}
 	}
 };
 init();

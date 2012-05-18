@@ -17,21 +17,16 @@ count = 0;
 config = {
 	"./clubbed.js" : {
 		"./hi.js" : {
-			minify: false
+			minify : false
+		},
+		"./file1.js" : {
+			minify : false
 		}
 	}
 };
- 
-var server = http.createServer(
-function(req, res){
-	res.writeHead(200, {'Content-Type': 'text/plain'});
-	res.write('hello world');
-	res.end();
-});
-server.listen(8000, "127.0.0.1");
-console.log('Clubby server running at http://127.0.0.1:8000/');
 
-var start = function(){
+start = function(){
+    console.log('in start')
 	for(var file in config){
 		console.log(file);
 	}
@@ -39,10 +34,20 @@ var start = function(){
 
 clubby.watchFile('./hi.js', {persistent : true}, 
 function(curr, prev){
-	start();
 	console.log('current ', curr, ' and previous ', prev);
 	count += 1;
 	console.log(count, ' ----------------------------------------');
 });
 console.log('clubby is watching hi.js file...');
+ 
+server = http.createServer(
+function(req, res){
+    start();
+	res.writeHead(200, {'Content-Type': 'text/plain'});
+	res.write('hello world');
+	res.end();
+});
+server.listen(8000, "127.0.0.1");
+console.log('Clubby server running at http://127.0.0.1:8000/');
+
 

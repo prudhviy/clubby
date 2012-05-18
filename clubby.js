@@ -14,8 +14,8 @@ init = function() {
 
 		for(var file in config[clubbed_file]) {
 			clubby.watch(file, {persistent : true}, 
-				function(curr, prev) {
-					console.log('current ', curr, ' and previous ', prev);
+				function(event, file_name) {
+					console.log('event: ', event, ' and File: ', file_name);
 					count += 1;
 					console.log(count, ' ----------------------------------------');
 			});

@@ -12,10 +12,11 @@ count = 0;
 // Description : Above file_1.js and file_2.js are clubbed into a single
 //               file with name clubbed_file.js
 //		 Here file_1.js is minified and file_2.js is'nt minified
+//		 By default minify is false
 
 config = {
-	"./clubbed.txt" : {
-		"./hi.txt" : {
+	"./clubbed.js" : {
+		"./hi.js" : {
 			minify: false
 		}
 	}
@@ -30,10 +31,18 @@ function(req, res){
 server.listen(8000, "127.0.0.1");
 console.log('Clubby server running at http://127.0.0.1:8000/');
 
-clubby.watchFile('./hi.txt', {persistent: true}, 
+var start = function(){
+	for(var file in config){
+		console.log(file);
+	}
+};
+
+clubby.watchFile('./hi.js', {persistent : true}, 
 function(curr, prev){
+	start();
 	console.log('current ', curr, ' and previous ', prev);
 	count += 1;
 	console.log(count, ' ----------------------------------------');
 });
-console.log('dog is watching hi.txt file...');
+console.log('clubby is watching hi.js file...');
+

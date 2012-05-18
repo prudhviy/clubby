@@ -5,49 +5,45 @@ count = 0;
 // config - Format
 // config = {
 // 	"clubbed_file.js" : { 
-//		"file_1.js" : { minify : true },
-//		"file_2.js" : { minify : false }		
+//		"file_1.js" : minify,
+//		"file_2.js" : minify
 //	 }
 // }
 // Description : Above file_1.js and file_2.js are clubbed into a single
 //               file with name clubbed_file.js
-//		 Here file_1.js is minified and file_2.js is'nt minified
-//		 By default minify is false
+//               The files are clubbed in the order of appearence
+//               By default minify is false
 
 config = {
 	"./clubbed.js" : {
-		"./hi.js" : {
-			minify : false
-		},
-		"./file1.js" : {
-			minify : false
-		}
+		"./hi.js"    : false,
+		"./file1.js" : false
 	}
 };
 
-start = function(){
-    console.log('in start')
-	for(var file in config){
-		console.log(file);
+init = function() {
+	for(var clubbed_file in config) {
+
+        for(var file in config[clubbed_file]) {
+            clubby.watchFile(file, {persistent : true}, 
+                function(curr, prev) {
+                    console.log('current ', curr, ' and previous ', prev);
+                    count += 1;
+                    console.log(count, ' ----------------------------------------');
+            });
+            console.log('clubby is watching ', file,' file...');
+        }
 	}
 };
+init();
 
-clubby.watchFile('./hi.js', {persistent : true}, 
-function(curr, prev){
-	console.log('current ', curr, ' and previous ', prev);
-	count += 1;
-	console.log(count, ' ----------------------------------------');
-});
-console.log('clubby is watching hi.js file...');
- 
 server = http.createServer(
 function(req, res){
-    start();
 	res.writeHead(200, {'Content-Type': 'text/plain'});
 	res.write('hello world');
 	res.end();
 });
-server.listen(8000, "127.0.0.1");
-console.log('Clubby server running at http://127.0.0.1:8000/');
+//server.listen(8000, "127.0.0.1");
+//console.log('Clubby server running at http://127.0.0.1:8000/');
 
 

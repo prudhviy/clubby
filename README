@@ -1,9 +1,9 @@
 config - Format
 config = {
-	"clubbed_file.js" : { 
-		"file_1.js" : minify,
-		"file_2.js" : minify
-	}
+	"clubbed_file.js" : [
+		{ "file_1.js" : minify },
+		{ "file_2.js" : minify }
+	]
 }
 Description : Above file_1.js and file_2.js are clubbed into a single
               file with name clubbed_file.js

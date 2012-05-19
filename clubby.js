@@ -3,10 +3,10 @@ clubby = require('fs');
 count = 0;
 
 config = {
-	"./clubbed.js" : {
-		"./hi.js"    : false,
-		"./file1.js" : false
-	}
+	"./clubbed.js" : [
+		{ "./hi.js"    : false },
+		{ "./file1.js" : false }
+	]
 };
 
 init = function() {
